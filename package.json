@@ -1,0 +1,14 @@
+{
+  "name": "harmless-game-center",
+  "version": "1.0.0",
+  "description": "Game library, similar to the one in Harmlesswebsite",
+  "main": "main.js",
+  "scripts": {
+    "test": "electron ."
+  },
+  "author": "The Feeway entrance Fart I 280 Barf group",
+  "license": "GPL-3.0-or-later",
+  "devDependencies": {
+    "electron": "^19.0.1"
+  }
+}
