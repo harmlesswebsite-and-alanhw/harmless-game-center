@@ -9,7 +9,8 @@ function getSetting(value) {
 globalThis.defaultSettings = {
     "desktopImage": "img/bsiv.png",
     "whenToFocusWindow": "mouseover",
-    "resolution-change-hide-timeout": 2
+    "resolution-change-hide-timeout": 2,
+    "focusTimeout": 1
 };
 globalThis.settingsData = {
     "desktopImage": {
@@ -24,5 +25,9 @@ globalThis.settingsData = {
     "resolution-change-hide-timeout": {
         "type": "int",
         "description": "Duration (in seconds) the width and height show when resizing the window."
+    },
+    "focusTimeout": {
+        "type": "int",
+        "description": "Wait this long (in seconds) after a window is eligible to be focused to focus it."
     }
 }

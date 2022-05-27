@@ -49,3 +49,22 @@ button, input, select, textarea {
     border-radius: 7px;
     display: none;
 }
+.operation-button {
+    padding-left: 7px;
+    padding-right: 7px;
+    border: none;
+    background-color: transparent;
+    color: white;
+}
+.close-button:hover {
+    background-color: red;
+}
+.maximized {
+    width: 100% !important; 
+    height: 100% !important;
+    top: 0 !important;
+    left: 0 !important;
+}
+.minimized {
+    display: none !important;
+}

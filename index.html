@@ -34,6 +34,7 @@ Applications:
                 if (ev.data['windows'][i].focused) windowButton.classList.add('active-window-button');
                 windowButton.setAttribute('data-window-id', ev.data['windows'][i].id);
                 windowButton.addEventListener('click', function() {
+                    document.getElementById('windowFrame').contentWindow.postMessage({"type": "unminimizeWindowById", "id": this.getAttribute('data-window-id')});
                     document.getElementById('windowFrame').contentWindow.postMessage({"type": "focusWindowById", "id": this.getAttribute('data-window-id')});
                 });
                 windowButton.textContent = ev.data['windows'][i].title;
