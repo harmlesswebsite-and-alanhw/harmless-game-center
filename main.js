@@ -10,6 +10,7 @@ const createWindow = () => {
     width: 800,
     height: 600
   })
+  mainWindow.setResizable(true);
 
   // and load the index.html of the app.
   mainWindow.loadFile('index.html')

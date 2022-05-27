@@ -12,7 +12,7 @@
 <div style="display: table-cell; width: 100%; height: 0px;" class="top-bar" id="topbartext"><span id="time"></span></div></div>
 <div class="body" style="display: table-row; height: 100%;"><div style="display: table-cell; height: 100%; width: 100%; position: relative;">
 <div style="position: absolute; top: 0; left: 0; z-index: 1; width: 100%; height: 100%;" id="desktop-background"></div>
-<div style="position: absolute; top: 0; left: 0; z-index: 1; width: 100%; height: 100%;" id="windows"><iframe style="border: none; width: 100%; height: 100%; background-color: transparent; z-index: 2;" src="windows.html"></iframe></div>
+<div style="position: absolute; top: 0; left: 0; z-index: 1; width: 100%; height: 100%;" id="windows"><iframe style="border: none; width: 100%; height: 100%; background-color: transparent; z-index: 2;" src="windows.html" id="windowFrame"></iframe></div>
 </div></div>
 <div style="display: table-row; width: 100%; height: 0px;">
 <div style="display: table-cell;" class="application-row">
@@ -23,5 +23,34 @@ Applications:
 </div>
 <script src="res/time.js"></script>
 <script src="res/loadsettings.js"></script>
+<script>
+    document.getElementById('windowFrame').onload = function() { document.getElementById('windowFrame').contentWindow.postMessage({"type": 'newApp', "title": 'Welcome!', "url":'welcome.html'}, '*'); }
+    window.onmessage = function(ev) {
+        if (ev.data.type === 'windowsChanged') {
+            document.getElementById('applications').innerHTML = '';
+            for (var i = 0; i < ev.data['windows'].length; i++) {
+                var windowButton = document.createElement('button');
+                windowButton.classList.add('window-button');
+                if (ev.data['windows'][i].focused) windowButton.classList.add('active-window-button');
+                windowButton.setAttribute('data-window-id', ev.data['windows'][i].id);
+                windowButton.addEventListener('click', function() {
+                    document.getElementById('windowFrame').contentWindow.postMessage({"type": "focusWindowById", "id": this.getAttribute('data-window-id')});
+                });
+                windowButton.textContent = ev.data['windows'][i].title;
+                document.getElementById('applications').appendChild(windowButton);
+                document.getElementById('applications').appendChild(document.createTextNode(' '));
+            }
+        }
+    }
+    window.onresize = function(ev) {
+        document.getElementById('resolution-width').textContent = window.innerWidth;
+        document.getElementById('resolution-height').textContent = window.innerHeight;
+        document.getElementById('resolution-changed').style.display = 'block';
+        setTimeout(function() { document.getElementById('resolution-changed').style.display = 'none'; }, getSetting('resolution-change-hide-timeout') * 1000);
+    }
+</script>
+<div class="resolution-changed" id="resolution-changed">
+    <span id="resolution-width">888</span>&times;<span id="resolution-height">888</span>
+</div>
 </body>
 </html>
