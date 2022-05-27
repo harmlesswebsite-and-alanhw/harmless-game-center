@@ -10,7 +10,7 @@ globalThis.defaultSettings = {
     "desktopImage": "img/bsiv.png",
     "whenToFocusWindow": "mouseover",
     "resolution-change-hide-timeout": 2,
-    "focusTimeout": 1
+    "focusTimeout": 0.5
 };
 globalThis.settingsData = {
     "desktopImage": {
@@ -20,7 +20,7 @@ globalThis.settingsData = {
     "whenToFocusWindow": {
         "type": "options",
         "description": "When to focus windows.",
-        "options": ['mouseover', 'click']
+        "options": ['mouseover', 'mousedown']
     },
     "resolution-change-hide-timeout": {
         "type": "int",

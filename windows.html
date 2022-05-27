@@ -26,14 +26,14 @@
     }
     globalThis.windows = [];
     class app {
-        constructor(title, url) {
+        constructor(title, url, width = "400px", height = "300px") {
             this.id = uuidv4();
             this.title = title; 
             this.url = url; 
             this.top = 0;
             this.left = 0;
-            this.width = 400;
-            this.height = 300;
+            this.width = width;
+            this.height = height;
             this.minimized = false;
             this.focused = true;
             globalThis.windows.push(this);
@@ -165,7 +165,7 @@
                 }
                 break;
             case 'newApp':
-                new app(ev.data.title, ev.data.url);
+                new app(ev.data.title, ev.data.url, ev.data.width ?? "300px", ev.data.height ?? "400px");
                 break;
             case 'closeWindowById':
                 closeWindowById(ev.data.id);

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Endless Enemies</title>
+	<style type="text/css">
+		span {
+			font-size: 30px;
+		}
+		button {
+			width: fit-content;
+			height: fit-content;
+		}
+		button:hover {
+			cursor: pointer;
+		}
+	</style>
+</head>
+<body id='baudy'>
+	<center>
+		<strong><h1 style="color: red">Welcome to Endless Enemies! Statistics are random. See how long you last!</h1></strong><br>
+		<span id="streak">Streak: 0</span><span style="white-space: pre;">                                                                                    </span><span id="highStreak">High Streak: 0</span>
+		<br /><br /><br /><br />
+		<h1 id="yourHp" style="color: green;">Your hp: </h1><h1 id="yourAtt">Your att: </h1><h1 id="enemyHp" style="color: green;">Enemy hp: </h1><h1 id="enemyAtt">Enemy att: </h1>
+		<div id="info" style="font-size: 25px;">
+			
+		</div>
+		<br><br><br><button onclick="stab()" style="border: 3px solid red; border-radius: 20px; font-size: 30px; width: 23%; height: 10%;">Stab (100% att, 90% chance success)</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button onclick="charge()" style="border: 3px solid green; border-radius: 20px; font-size: 30px; width: 23%; height: 10%;">Charge (200% att, 50% chance success)</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button onclick="smash()" style="border: 3px solid blue; border-radius: 20px; font-size: 30px; width: 23%; height: 10%;">Smash (400% att, 25% chance success)</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button onclick="kamikaze()" style="border: 3px solid black; border-radius: 20px; font-size: 30px; width: 23%; height: 10%;">Kamikaze (Instant win, 8.33% chance success)</button>
+	</center>
+	<script type="text/javascript">
+    function random(start,end){
+	return Math.floor(Math.random()*(end-start+1))+start
+}
+  </script>
+	<script type="text/javascript">
+		var prev = ""
+		var yourHp = Math.floor(Math.random()*30)+139
+		var yourAtt = Math.floor(Math.random()*30)+141
+		var enemyHp = Math.floor(Math.random()*750)+750
+		var enemyAtt = Math.floor(Math.random()*30)+10
+		var streak = 0
+		var highStreak = 0
+		var origYourHp = yourHp
+		var origEnemyHp = enemyHp
+		document.getElementById('yourHp').innerHTML = "Your hp: "+yourHp
+		document.getElementById('yourAtt').innerHTML = "Your Att: "+yourAtt
+		document.getElementById('enemyHp').innerHTML = "Enemy hp: "+enemyHp
+		document.getElementById('enemyAtt').innerHTML = "Enemy Att: "+enemyAtt
+		function die(){
+			yourHp = Math.floor(Math.random()*30)+139
+			yourAtt = Math.floor(Math.random()*30)+141
+			enemyHp = Math.floor(Math.random()*750)+750
+			enemyAtt = Math.floor(Math.random()*30)+10
+			streak = 0
+			origYourHp = yourHp
+			origEnemyHp = enemyHp
+			document.getElementById('yourHp').innerHTML = "Your hp: "+yourHp
+			document.getElementById('yourAtt').innerHTML = "Your Att: "+yourAtt
+			document.getElementById('enemyHp').innerHTML = "Enemy hp: "+enemyHp
+			document.getElementById('enemyAtt').innerHTML = "Enemy Att: "+enemyAtt
+			document.getElementById("streak").innerHTML = "Streak: 0"
+			document.getElementById("info").innerHTML = "You died."
+			prev = "You died."
+			document.getElementById("yourHp").style.color = "green"
+			document.getElementById("enemyHp").style.color = "green"
+		}
+		function check(){
+			if (yourHp <= origYourHp/2){
+				document.getElementById("yourHp").style.color = "#f6ff00"
+			}
+			if (enemyHp <= origEnemyHp/2){
+				document.getElementById("enemyHp").style.color = "#f6ff00"
+			}
+			if (enemyHp <= 0){
+				streak ++
+				yourHp = Math.floor(Math.random()*30)+139
+				yourAtt = Math.floor(Math.random()*30)+141
+				enemyHp = Math.floor(Math.random()*750)+750
+				enemyAtt = Math.floor(Math.random()*30)+10
+				origYourHp = yourHp
+				origEnemyHp = enemyHp
+				document.getElementById('yourHp').innerHTML = "Your hp: "+yourHp
+				document.getElementById('yourAtt').innerHTML = "Your Att: "+yourAtt
+				document.getElementById('enemyHp').innerHTML = "Enemy hp: "+enemyHp
+				document.getElementById('enemyAtt').innerHTML = "Enemy Att: "+enemyAtt
+				document.getElementById("info").innerHTML = "You won!"
+				prev = "You won!"
+				document.getElementById("yourHp").style.color = "green"
+				document.getElementById("enemyHp").style.color = "green"
+				document.getElementById('streak').innerHTML = "Streak: "+streak
+			}
+			if (yourHp <= 0){
+				die()
+			}
+			if (streak > highStreak){
+				highStreak = streak
+				document.getElementById('highStreak').innerHTML = "High streak: "+highStreak
+			}
+		}
+		function attack(){
+			var chance = Math.floor(Math.random()*10)
+			if (chance !== 1){
+				yourHp -= enemyAtt
+				document.getElementById('yourHp').innerHTML = "Your hp: "+yourHp
+				check()
+			}
+		}
+		function stab(){
+			var chance = Math.floor(Math.random()*10)
+			if (chance !== 1){
+				document.getElementById('info').innerHTML = prev+"<br>"+"You deal "+yourAtt+" to your enemy."
+				prev = "You deal "+yourAtt+" to your enemy."
+				enemyHp -= yourAtt
+				document.getElementById('enemyHp').innerHTML = "Enemy hp: "+enemyHp
+			}
+			else {
+				document.getElementById('info').innerHTML = prev+"<br>"+"You failed :("
+				prev = "You failed :("
+			}
+			attack()
+		}
+		function charge(){
+			var chance = Math.floor(Math.random()*2)
+			if (chance !== 1){
+				document.getElementById('info').innerHTML = prev+"<br>"+"You deal "+2*yourAtt+" to your enemy."
+				prev = "You deal "+(2*yourAtt)+" to your enemy."
+				enemyHp -= yourAtt*2
+				document.getElementById('enemyHp').innerHTML = "Enemy hp: "+enemyHp
+			}
+			else {
+				document.getElementById('info').innerHTML = prev+"<br>"+"You failed :("
+				prev = "You failed :("
+			}
+			attack()
+		}
+		function smash(){
+			var chance = Math.floor(Math.random()*4)
+			if (chance == 1){
+				document.getElementById('info').innerHTML = prev+"<br>"+"You deal "+yourAtt*4+" to your enemy."
+				prev = "You deal "+(yourAtt*4)+" to your enemy."
+				enemyHp -= yourAtt*4
+				document.getElementById('enemyHp').innerHTML = "Enemy hp: "+enemyHp
+			}
+			else {
+				document.getElementById('info').innerHTML = prev+"<br>"+"You failed :("
+				prev = "You failed :("
+			}
+			attack()
+		}
+		function kamikaze(){
+			var chance = Math.floor(Math.random()*12)
+			if (chance == 1){
+				enemyHp = 0
+				check()
+			}
+			else {
+				document.getElementById('info').innerHTML = prev+"<br>"+"You failed :("
+				prev = "You failed :("
+			}
+			attack()
+		}
+	</script>
+</body>
+</html>

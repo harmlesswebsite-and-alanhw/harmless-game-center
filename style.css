@@ -1,9 +1,19 @@
 body {
     font-family: system-ui;
 }
-button, input, select, textarea {
+button:not(.operation-button), input, select, textarea {
     font-size: inherit; 
     font-family: inherit;
+    background-color: #f0f0f0;
+    border-radius: 7px;
+    padding: 7px; 
+    border: 1px solid gray;
+}
+button:hover:not(.window-button):not(.operation-button), input:hover, select:hover, textarea:hover {
+    background-color: lightgray;
+}
+:disabled {
+    background-color: white;
 }
 .top-bar {
     background-color: lightgray; 
@@ -32,13 +42,13 @@ button, input, select, textarea {
     box-shadow: 1px 1px 1px 1px gray;
 }
 .active-window-button {
-    background-color: cyan;
+    background-color: cyan !important;
     box-shadow: none;
     margin-right: -1px;
     margin-bottom: -1px;
 }
 .resolution-changed {
-    z-index: 3;
+    z-index: 4;
     position: fixed;
     top: 50%;
     left: 50%;
@@ -67,4 +77,37 @@ button, input, select, textarea {
 }
 .minimized {
     display: none !important;
+}
+#application-list {
+    display: flex;
+    justify-content: center;
+}
+#application-list button {
+    padding: 14px;
+    border-radius: 7px;
+    background-color: transparent;
+    border: none;
+    color: white;
+}
+#application-list button:hover {
+    background-color: gray;
+}
+#app-list {
+    color: white;
+    display: none;
+    position: fixed; 
+    top: 50%;
+    left: 50%;
+    z-index: 3;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    width: 75%; 
+    height: 75%;
+    overflow-y: auto;
+}
+.center {
+    text-align: center;
+}
+.app {
+    border: 1px solid black;
 }
