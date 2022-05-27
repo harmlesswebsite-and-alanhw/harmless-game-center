@@ -1,0 +1,12 @@
+body {
+    font-family: system-ui;
+}
+button, input, select, textarea {
+    font-size: inherit; 
+    font-family: inherit;
+}
+.top-bar {
+    background-color: lightgray; 
+    padding: 7px;
+    text-align: center;
+}
