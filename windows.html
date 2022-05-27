@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title id="taitl">Harmless Games Window Manager</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="res/settings.js"></script>
+</head>
+<body>
+<script>
+    function uuidv4() {
+        return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
+        (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16));
+    }
+    globalThis.windows = [];
+    class app {
+        constructor(title, url) {
+            this.id = uuidv4();
+            this.title = title; 
+            this.url = url; 
+            this.top = 0;
+            this.left = 0;
+            this.width = 400;
+            this.height = 300;
+            this.minimized = false;
+            createWindow(this);
+            globalThis.windows.push(this);
+            refreshWindows();
+        }
+    }
+    function createWindow(wi) {
+        var w = document.createElement('div');
+        w.classList.add('app');
+        var title = document.createElement('div');
+        title.textContent = wi.title;
+        w.style.height = wi.height;
+        w.style.width = wi.width;
+        w.style.position = 'fixed';
+        w.style.top = wi.top;
+        w.style.left = wi.left;
+    }
+    function refreshWindows() {
+
+    }
+</script>
+</body>
+</html>

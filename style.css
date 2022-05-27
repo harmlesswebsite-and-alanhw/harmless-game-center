@@ -10,3 +10,8 @@ button, input, select, textarea {
     padding: 7px;
     text-align: center;
 }
+.application-row {
+    background-color: lightgray;
+    padding: 7px;
+    width: 100%;
+}
