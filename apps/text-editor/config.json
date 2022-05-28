@@ -1,0 +1,8 @@
+{
+    "name": "Text editor",
+    "author": "Timothy (@weeklyd3)",
+    "start": "apps/text-editor/index.html",
+    "license": "GPL-3.0-or-later",
+    "description": "A minimalistic text editor",
+    "version": "1.0.0"
+}

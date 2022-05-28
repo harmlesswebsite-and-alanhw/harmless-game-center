@@ -13,7 +13,8 @@ const createWindow = () => {
       preload: path.join(__dirname, "/preload.js"),
       nodeIntegration: true,
       contextIsolation: false,
-      enableRemoteModule: true
+      enableRemoteModule: true,
+      nodeIntegrationInSubFrames: true
     }
   })
   mainWindow.setResizable(true);

@@ -20,7 +20,8 @@ globalThis.defaultSettings = {
 globalThis.settingsData = {
     "desktopImage": {
         "type": "file",
-        "description": "Desktop image"
+        "description": "Desktop image. (If you cannot see a desktop image after applying this, try putting 'file:///' before the path or surrounding the path with quotes.)",
+        "requiresRestart": true
     },
     "whenToFocusWindow": {
         "type": "options",
