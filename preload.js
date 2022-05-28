@@ -41,9 +41,11 @@ function setApps(apps) {
         appButton.style.textAlign = 'center';
         appButton.title = apps[i].description;
         appButton.style.verticalAlign = 'middle';
+        appButton.setAttribute('data-starts', apps[i].starts);
+        appButton.setAttribute('data-name', apps[i].name);
         appButton.addEventListener('click', function() {
             document.getElementById('app-list').style.display = 'none';
-            app.start();
+            document.querySelector('iframe').contentWindow.postMessage({"type": 'newApp', "title": this.getAttribute('data-name'), "url": this.getAttribute('data-starts'), 'height': '450px', 'width': '700px'});
         });
         var image = document.createElement('img');
         image.alt = `App icon for ${apps[i].name}`;

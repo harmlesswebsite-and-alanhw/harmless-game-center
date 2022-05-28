@@ -1,0 +1,7 @@
+{
+    "name": "Welcome",
+    "author": "@weeklyd3",
+    "start": "apps/welcome/index.html",
+    "license": "GPL-3.0-or-later",
+    "description": "Welcome application, ran on first run"
+}

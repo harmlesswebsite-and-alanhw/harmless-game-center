@@ -1,5 +1,7 @@
 {
   "name": "harmless-game-center",
+  "productName": "Harmless game center",
+  "icon": "img/logo.svg",
   "version": "1.0.0",
   "description": "Game library, similar to the one in Harmlesswebsite",
   "main": "main.js",

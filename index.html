@@ -18,7 +18,8 @@ YOU SHOULD NOT BE SEEING THIS AT ALL
 <div style="display: table-row; width: 100%; height: 0px;" class="application-row">
 <div style="display: table-cell;" class="application-row">
 <button style="background-color: transparent; padding: 0; border: none; vertical-align: middle;" onclick="document.getElementById('app-list').style.display = 'block'; document.getElementById('app-list').focus();"><img height="34.3333" src="img/appicon.svg" alt="Open new application" style="display: block;" /></button>
-<span id="applications"></span>
+&nbsp;
+<span id="applications">No windows open.</span>
 </div>
 </div>
 </div>
@@ -31,10 +32,11 @@ YOU SHOULD NOT BE SEEING THIS AT ALL
 <script src="res/time.js"></script>
 <script src="res/loadsettings.js"></script>
 <script>
-    document.getElementById('windowFrame').onload = function() { if (localStorage.getItem('firstrun')) return; document.getElementById('windowFrame').contentWindow.postMessage({"type": 'newApp', "title": 'Welcome!', "url":'welcome.html', 'height': '450px', 'width': '700px'}, '*'); localStorage.setItem('firstrun', 'true'); }
+    document.getElementById('windowFrame').onload = function() { if (localStorage.getItem('firstrun')) return; document.getElementById('windowFrame').contentWindow.postMessage({"type": 'newApp', "title": 'Welcome!', "url":'apps/welcome/index.html', 'height': '450px', 'width': '700px'}, '*'); localStorage.setItem('firstrun', 'true'); }
     window.onmessage = function(ev) {
         if (ev.data.type === 'windowsChanged') {
             document.getElementById('applications').innerHTML = '';
+            if (!ev.data['windows'].length) document.getElementById('applications').textContent = 'No windows open.';
             for (var i = 0; i < ev.data['windows'].length; i++) {
                 var windowButton = document.createElement('button');
                 windowButton.classList.add('window-button');
@@ -51,10 +53,11 @@ YOU SHOULD NOT BE SEEING THIS AT ALL
         }
     }
     window.onresize = function(ev) {
+        clearTimeout(globalThis.rst);
         document.getElementById('resolution-width').textContent = window.innerWidth;
         document.getElementById('resolution-height').textContent = window.innerHeight;
         document.getElementById('resolution-changed').style.display = 'block';
-        setTimeout(function() { document.getElementById('resolution-changed').style.display = 'none'; }, getSetting('resolution-change-hide-timeout') * 1000);
+        globalThis.rst = setTimeout(function() { document.getElementById('resolution-changed').style.display = 'none'; }, getSetting('resolution-change-hide-timeout') * 1000);
     }
 </script>
 <script src="preload.js"></script>

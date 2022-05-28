@@ -80,6 +80,7 @@ button:hover:not(.window-button):not(.operation-button), input:hover, select:hov
 }
 #application-list {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
 }
 #application-list button {
@@ -90,7 +91,7 @@ button:hover:not(.window-button):not(.operation-button), input:hover, select:hov
     color: white;
 }
 #application-list button:hover {
-    background-color: gray;
+    background-color: rgba(128, 128, 128, 0.8);
 }
 #app-list {
     color: white;
