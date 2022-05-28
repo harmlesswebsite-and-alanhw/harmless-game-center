@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Stone Age Survival</title>
+    <link rel="stylesheet" href="../../style.css" />
+	<style type="text/css">
+		button:not([id="goHome"]) {
+			width: 50px;
+			height: 50px;
+			border-radius: 25px;
+			background-color: red;
+			font-size: 20px;
+		}
+		button:hover:not([id="goHome"]) {
+			background-color: darkred;
+			cursor: pointer;
+		}
+		span {
+			font-size: 30px;
+		}
+	</style>
+</head>
+<body>
+	<center>
+		<h1>One of these 100 buttons is a win button, the other 99, well, other thing happen. Try not to die!</h1>
+		<button onclick="clickButton(1)" id="1"></button>&nbsp;<button onclick="clickButton(2)" id="2"></button>&nbsp;<button onclick="clickButton(3)" id="3"></button>&nbsp;<button onclick="clickButton(4)" id="4"></button>&nbsp;<button onclick="clickButton(5)" id="5"></button>&nbsp;<button onclick="clickButton(6)" id="6"></button>&nbsp;<button onclick="clickButton(7)" id="7"></button>&nbsp;<button onclick="clickButton(8)" id="8"></button>&nbsp;<button onclick="clickButton(9)" id="9"></button>&nbsp;<button onclick="clickButton(10)" id="10"></button>&nbsp;<br><button onclick="clickButton(11)" id="11"></button>&nbsp;<button onclick="clickButton(12)" id="12"></button>&nbsp;<button onclick="clickButton(13)" id="13"></button>&nbsp;<button onclick="clickButton(14)" id="14"></button>&nbsp;<button onclick="clickButton(15)" id="15"></button>&nbsp;<button onclick="clickButton(16)" id="16"></button>&nbsp;<button onclick="clickButton(17)" id="17"></button>&nbsp;<button onclick="clickButton(18)" id="18"></button>&nbsp;<button onclick="clickButton(19)" id="19"></button>&nbsp;<button onclick="clickButton(20)" id="20"></button>&nbsp;<br><button onclick="clickButton(21)" id="21"></button>&nbsp;<button onclick="clickButton(22)" id="22"></button>&nbsp;<button onclick="clickButton(23)" id="23"></button>&nbsp;<button onclick="clickButton(24)" id="24"></button>&nbsp;<button onclick="clickButton(25)" id="25"></button>&nbsp;<button onclick="clickButton(26)" id="26"></button>&nbsp;<button onclick="clickButton(27)" id="27"></button>&nbsp;<button onclick="clickButton(28)" id="28"></button>&nbsp;<button onclick="clickButton(29)" id="29"></button>&nbsp;<button onclick="clickButton(30)" id="30"></button>&nbsp;<br><button onclick="clickButton(31)" id="31"></button>&nbsp;<button onclick="clickButton(32)" id="32"></button>&nbsp;<button onclick="clickButton(33)" id="33"></button>&nbsp;<button onclick="clickButton(34)" id="34"></button>&nbsp;<button onclick="clickButton(35)" id="35"></button>&nbsp;<button onclick="clickButton(36)" id="36"></button>&nbsp;<button onclick="clickButton(37)" id="37"></button>&nbsp;<button onclick="clickButton(38)" id="38"></button>&nbsp;<button onclick="clickButton(39)" id="39"></button>&nbsp;<button onclick="clickButton(40)" id="40"></button>&nbsp;<br><button onclick="clickButton(41)" id="41"></button>&nbsp;<button onclick="clickButton(42)" id="42"></button>&nbsp;<button onclick="clickButton(43)" id="43"></button>&nbsp;<button onclick="clickButton(44)" id="44"></button>&nbsp;<button onclick="clickButton(45)" id="45"></button>&nbsp;<button onclick="clickButton(46)" id="46"></button>&nbsp;<button onclick="clickButton(47)" id="47"></button>&nbsp;<button onclick="clickButton(48)" id="48"></button>&nbsp;<button onclick="clickButton(49)" id="49"></button>&nbsp;<button onclick="clickButton(50)" id="50"></button>&nbsp;<br><button onclick="clickButton(51)" id="51"></button>&nbsp;<button onclick="clickButton(52)" id="52"></button>&nbsp;<button onclick="clickButton(53)" id="53"></button>&nbsp;<button onclick="clickButton(54)" id="54"></button>&nbsp;<button onclick="clickButton(55)" id="55"></button>&nbsp;<button onclick="clickButton(56)" id="56"></button>&nbsp;<button onclick="clickButton(57)" id="57"></button>&nbsp;<button onclick="clickButton(58)" id="58"></button>&nbsp;<button onclick="clickButton(59)" id="59"></button>&nbsp;<button onclick="clickButton(60)" id="60"></button>&nbsp;<br><button onclick="clickButton(61)" id="61"></button>&nbsp;<button onclick="clickButton(62)" id="62"></button>&nbsp;<button onclick="clickButton(63)" id="63"></button>&nbsp;<button onclick="clickButton(64)" id="64"></button>&nbsp;<button onclick="clickButton(65)" id="65"></button>&nbsp;<button onclick="clickButton(66)" id="66"></button>&nbsp;<button onclick="clickButton(67)" id="67"></button>&nbsp;<button onclick="clickButton(68)" id="68"></button>&nbsp;<button onclick="clickButton(69)" id="69"></button>&nbsp;<button onclick="clickButton(70)" id="70"></button>&nbsp;<br><button onclick="clickButton(71)" id="71"></button>&nbsp;<button onclick="clickButton(72)" id="72"></button>&nbsp;<button onclick="clickButton(73)" id="73"></button>&nbsp;<button onclick="clickButton(74)" id="74"></button>&nbsp;<button onclick="clickButton(75)" id="75"></button>&nbsp;<button onclick="clickButton(76)" id="76"></button>&nbsp;<button onclick="clickButton(77)" id="77"></button>&nbsp;<button onclick="clickButton(78)" id="78"></button>&nbsp;<button onclick="clickButton(79)" id="79"></button>&nbsp;<button onclick="clickButton(80)" id="80"></button>&nbsp;<br><button onclick="clickButton(81)" id="81"></button>&nbsp;<button onclick="clickButton(82)" id="82"></button>&nbsp;<button onclick="clickButton(83)" id="83"></button>&nbsp;<button onclick="clickButton(84)" id="84"></button>&nbsp;<button onclick="clickButton(85)" id="85"></button>&nbsp;<button onclick="clickButton(86)" id="86"></button>&nbsp;<button onclick="clickButton(87)" id="87"></button>&nbsp;<button onclick="clickButton(88)" id="88"></button>&nbsp;<button onclick="clickButton(89)" id="89"></button>&nbsp;<button onclick="clickButton(90)" id="90"></button>&nbsp;<br><button onclick="clickButton(91)" id="91"></button>&nbsp;<button onclick="clickButton(92)" id="92"></button>&nbsp;<button onclick="clickButton(93)" id="93"></button>&nbsp;<button onclick="clickButton(94)" id="94"></button>&nbsp;<button onclick="clickButton(95)" id="95"></button>&nbsp;<button onclick="clickButton(96)" id="96"></button>&nbsp;<button onclick="clickButton(97)" id="97"></button>&nbsp;<button onclick="clickButton(98)" id="98"></button>&nbsp;<button onclick="clickButton(99)" id="99"></button>&nbsp;<button onclick="clickButton(100)" id="100"></button>&nbsp;<br>
+		<h1>Result:</h1>
+		<h1 id="result"></h1>
+		<span id="alive">People Alive: 5</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span id="food">Food: 100</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span id="water">Water: 100</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span id="tools">Tools: 5</span>
+	</center>
+<script type="text/javascript">
+    function random(start,end){
+	return Math.floor(Math.random()*(end-start+1))+start
+}
+  </script>
+	<script type="text/javascript">
+		var alive = 5
+		var food = 100
+		var water = 100
+		var tools = 5
+		var result = ""
+		var resurrect = random(1,100)
+		var resurrect2 = random(1,100)
+		var win = Math.floor(Math.random()*100)+1
+		var stopped = false
+		function choseYes(thing){
+			switch (thing){
+				case 'poisonousBerries':
+				var chance1 = random(1,3)
+				if (chance1 == 1){
+					alive--
+					result = "The berries were poisonous. One person died. "
+				}
+				else {
+					food += random(7,10)
+					result = "The berries were normal. You add them to you food supply. "
+				}
+				break;
+				case "move":
+				var chance2 = random(1,2)
+				if (chance2 == 1){
+					result = "You moved, and good stuff happened. You get some food and water."
+					food += random(4,6)
+					water += random(4,6)
+				}
+				else {
+					result = "You moved, but found nothing at your new home. You move back, costing you some food and water."
+					food -= 5
+					water -= 5
+				}
+				break
+				case "stream":
+				if (tools<=0){
+					result = "You have no more tools."
+					break
+				}
+				water += random(9,12)
+				tools --
+				result = "You gathered water."
+				break
+				case "hunt":
+				if (tools<=1){
+					result = "You don't have enough tools"
+					break
+				}
+				tools -= 2
+				var chance3 = random(1,4)
+				if (chance3 == 1){
+					result = "You found nothing :("
+					break
+				}
+				else if (chance3 == 2){
+					result = "One person got lost and died."
+					alive --
+					break
+				}
+				else {
+					result = "You found and killed a lot of animals."
+					food += random(23,28)
+					break
+				}
+			}
+			stopped = false
+			if (alive <= 0){
+				result = "<br /> Everyone's dead, so you lose."
+				document.getElementById("result").innerHTML = result
+				stopped = true
+				document.getElementById("alive").innerHTML = "People Alive: Everyone's dead."
+				return
+			}
+			if (water < 0){
+				water = 0
+				result += "<br /> You have no more water! One person died."
+				alive--
+			}
+			if (food < 0){
+				food = 0
+				result += "<br /> You have no more food! One person died."
+				alive--
+			}
+			document.getElementById("water").innerHTML = "Water: "+water
+			document.getElementById("food").innerHTML = "Food "+food
+			document.getElementById("tools").innerHTML = "Tools "+tools
+			document.getElementById("result").innerHTML = result
+			document.getElementById("alive").innerHTML = "People Alive: "+alive
+			if (alive <= 0){
+				result = "<br> Everyone's dead, so you lose."
+				document.getElementById("result").innerHTML = result
+				stopped = true
+				document.getElementById("alive").innerHTML = "People Alive: Everyone's dead."
+				return
+			}
+		}
+		function choseNo() {
+			result = "Nope. "
+			stopped = false
+			document.getElementById("result").innerHTML = result
+			document.getElementById("food").innerHTML = "Food "+food
+			document.getElementById("tools").innerHTML = "Tools "+tools
+			document.getElementById("alive").innerHTML = "People Alive: "+alive
+			document.getElementById("water").innerHTML = "Water: "+water
+		}
+		function clickButton(n) {
+			result = ""
+			food -= alive
+			water -= alive
+			if (stopped == true){
+				return
+			}
+			document.getElementById(n).style.backgroundColor = "gray"
+			document.getElementById(n).disabled = true
+			if (n == win){
+				result = "YOU WIN!"
+				stopped = true
+				document.getElementById("result").innerHTML = result
+				return
+			}
+			var chance = Math.floor(Math.random()*10)+1
+			switch (chance){
+				case 1:
+				result = "You harvested a few berry bushes, but you can't tell if the berries are poisonous or not. Do you eat them? <br> <button onclick=\"choseYes('poisonousBerries')\">Yes</button> <button onclick=\"choseNo()\">No</button> "
+				stopped = true
+				break
+				case 2:
+				result = "One person suggests you move! Do you? <br> <button onclick=\"choseYes('move')\">Yes</button> <button onclick=\"choseNo()\">No</button> "
+				stopped = true
+				break
+				case 3:
+				result = "You find a stream, but you need to use a tool to gather water. Do you gather water? <br> <button onclick=\"choseYes('stream')\">Yes</button> <button onclick=\"choseNo()\">No</button> "
+				stopped = true
+				break 
+				case 4:
+				result = "You have nothing else to do, so you made tools."
+				tools += random(1,3)
+				break
+				case 5:
+				result = "You go hunting! You need 2 tools to go. Do you go? <br> <button onclick=\"choseYes('hunt')\">Yes</button> <button onclick=\"choseNo()\">No</button> "
+				stopped = true
+				break
+			}
+			if (n == resurrect){
+				result += "<br> And what the heck you managed to resurrect one of your dead friends."
+				alive ++
+			}
+			if (n == resurrect2){
+				result += "<br> And what the heck you managed to resurrect one of your dead friends."
+				alive ++
+			}
+			if (alive <= 0){
+				result = "<br> Everyone's dead, so you lose."
+				document.getElementById("result").innerHTML = result
+				stopped = true
+				document.getElementById("alive").innerHTML = "People Alive: Everyone's dead."
+				return
+			}
+			if (water < 0){
+				water = 0
+				result += "<br> You have no more water! One person died."
+				alive --
+			}
+			if (food < 0){
+				food = 0
+				result += "<br> You have no more food! One person died."
+				alive --
+			}
+			document.getElementById("water").innerHTML = "Water: "+water
+			document.getElementById("food").innerHTML = "Food "+food
+			document.getElementById("tools").innerHTML = "Tools "+tools
+			document.getElementById("result").innerHTML = result
+			document.getElementById("alive").innerHTML = "People Alive: "+alive
+			if (alive <= 0){
+				result = "<br> Everyone's dead, so you lose."
+				document.getElementById("result").innerHTML = result
+				stopped = true
+				document.getElementById("alive").innerHTML = "People Alive: Everyone's dead."
+				return
+			}
+		}
+	</script>
+</body>
+</html>

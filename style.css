@@ -48,7 +48,9 @@ button:hover:not(.window-button):not(.operation-button), input:hover, select:hov
     margin-bottom: -1px;
 }
 .resolution-changed {
-    z-index: 4;
+    /* I am getting tired of having to change this
+       whenever a new modal is added. */
+    z-index: 888;
     position: fixed;
     top: 50%;
     left: 50%;
@@ -93,22 +95,37 @@ button:hover:not(.window-button):not(.operation-button), input:hover, select:hov
 #application-list button:hover {
     background-color: rgba(128, 128, 128, 0.8);
 }
-#app-list {
+#app-list, #restart, #shutdown {
+    padding: 21px;
     color: white;
     display: none;
     position: fixed; 
     top: 50%;
     left: 50%;
-    z-index: 3;
+    z-index: 4;
     transform: translate(-50%, -50%);
     background-color: rgba(0, 0, 0, 0.8);
+    overflow-y: auto;
+}
+#shutdown {
+    z-index: 5;
+}
+#app-list {
+    z-index: 3;
     width: 75%; 
     height: 75%;
-    overflow-y: auto;
 }
 .center {
     text-align: center;
 }
 .app {
     border: 1px solid black;
+}
+.box {
+    border: 1px solid;
+    padding: 7px;
+}
+.success {
+    color: green; 
+    background-color: lightgreen;
 }

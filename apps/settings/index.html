@@ -10,8 +10,16 @@
     <h1>Settings</h1>
     <p>This page allows you to configure your settings. Each setting should have a description, if not, well, try to experiment with it.</p>
     <h2>All settings</h2>
-    <form id="settings">
+    <form id="settings" onsubmit="save(); document.getElementById('savesettings').value = 'Settings saved'; document.getElementById('savesettings').disabled = 'disabled'; setTimeout(function() { document.getElementById('savesettings').disabled = ''; document.getElementById('savesettings').value = 'Save settings'; }, 500);" action="javascript:;">
     <div id="settingList">Please wait while we load the settings...</div>
+    <input type="submit" value="Save settings" id="savesettings" />
+    <div id="restartRequired" class="success box" hidden="hidden">
+        <h3>Your settings have been saved.</h3>
+        <p>Some changes may require a restart to be fully applied. Would you like to restart the application now?</p>
+        <p>(It's okay to ignore this message.)</p>
+        <button type="button" onclick="window.parent.parent.postMessage({'type': 'restart'}, '*');">Restart now</button>
+        <button type="button" onclick="window.parent.parent.postMessage({'type': 'shutdown'}, '*');">Na... I like to shut down more</button>
+    </div>
     </form>
     <script>
         document.getElementById('settingList').innerHTML = '';
@@ -57,11 +65,19 @@
                 input.type = 'number';
                 input.style.display = 'block';
                 input.value = getSetting(settingNames[i]);
+                input.step = 'any';
             }
             settingName.appendChild(input);
             row.appendChild(settingName);
             console.log(row);
             document.getElementById('settingList').appendChild(row);
+        }
+        function save() {
+            document.getElementById('restartRequired').hidden = '';
+            for (var i = 0; i < settingNames.length; i++) {
+                setSetting(settingNames[i], document.getElementById(`setting${i}input`).value);
+            }
+            return true;
         }
     </script>
     </body></html>

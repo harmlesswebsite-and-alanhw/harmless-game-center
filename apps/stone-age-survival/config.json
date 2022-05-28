@@ -1,0 +1,9 @@
+{
+    "name": "Stone Age Survival",
+    "author": "Leo",
+    "start": "apps/stone-age-survival/index.html",
+    "license": "GPL-3.0-or-later",
+    "description": "Leo's Stone Age Survival minigame",
+    "version": "1.0.0",
+    "image": "apps/stone-age-survival/logo.svg"
+}

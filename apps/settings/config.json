@@ -4,5 +4,6 @@
     "start": "apps/settings/index.html",
     "license": "GPL-3.0-or-later",
     "description": "Settings",
-    "image": "apps/settings/settings.svg"
+    "image": "apps/settings/settings.svg",
+    "version": "1.0.0"
 }

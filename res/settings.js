@@ -6,6 +6,11 @@ function getSetting(value) {
         return globalThis.defaultSettings[value];
     }
 }
+function setSetting(name, value) {
+    var settings = JSON.parse(localStorage.getItem('settings') ?? '{}');
+    settings[name] = value;
+    localStorage.setItem('settings', JSON.stringify(settings));
+}
 globalThis.defaultSettings = {
     "desktopImage": "img/bsiv.png",
     "whenToFocusWindow": "mouseover",
@@ -20,11 +25,13 @@ globalThis.settingsData = {
     "whenToFocusWindow": {
         "type": "options",
         "description": "When to focus windows.",
-        "options": ['mouseover', 'mousedown']
+        "options": ['mouseover', 'mousedown'],
+        "requiresRestart": true
     },
     "resolution-change-hide-timeout": {
         "type": "int",
-        "description": "Duration (in seconds) the width and height show when resizing the window."
+        "description": "Duration (in seconds) the width and height show when resizing the window.",
+        "requiresRestart": true
     },
     "focusTimeout": {
         "type": "int",

@@ -29,27 +29,48 @@ YOU SHOULD NOT BE SEEING THIS AT ALL
         
     </div>
 </div>
+<div id="restart">
+    <h2>Restart</h2>
+    <p>Are you sure you want to restart the application?</p>
+    <button onclick="location.reload();">Yes</button>
+    <button onclick="document.getElementById('restart').style.display = 'none';">No</button>
+</div>
+<div id="shutdown">
+    <h2>Shut down</h2>
+    <p>Are you sure you want to close the application?</p>
+    <button onclick="window.close()">Yes</button>
+    <button onclick="document.getElementById('shutdown').style.display = 'none';">No</button>
+</div>
 <script src="res/time.js"></script>
 <script src="res/loadsettings.js"></script>
 <script>
     document.getElementById('windowFrame').onload = function() { if (localStorage.getItem('firstrun')) return; document.getElementById('windowFrame').contentWindow.postMessage({"type": 'newApp', "title": 'Welcome!', "url":'apps/welcome/index.html', 'height': '450px', 'width': '700px'}, '*'); localStorage.setItem('firstrun', 'true'); }
     window.onmessage = function(ev) {
-        if (ev.data.type === 'windowsChanged') {
-            document.getElementById('applications').innerHTML = '';
-            if (!ev.data['windows'].length) document.getElementById('applications').textContent = 'No windows open.';
-            for (var i = 0; i < ev.data['windows'].length; i++) {
-                var windowButton = document.createElement('button');
-                windowButton.classList.add('window-button');
-                if (ev.data['windows'][i].focused) windowButton.classList.add('active-window-button');
-                windowButton.setAttribute('data-window-id', ev.data['windows'][i].id);
-                windowButton.addEventListener('click', function() {
-                    document.getElementById('windowFrame').contentWindow.postMessage({"type": "unminimizeWindowById", "id": this.getAttribute('data-window-id')});
-                    document.getElementById('windowFrame').contentWindow.postMessage({"type": "focusWindowById", "id": this.getAttribute('data-window-id')});
-                });
-                windowButton.textContent = ev.data['windows'][i].title;
-                document.getElementById('applications').appendChild(windowButton);
-                document.getElementById('applications').appendChild(document.createTextNode(' '));
-            }
+        switch (ev.data.type) {
+            case 'restart': 
+                document.getElementById('restart').style.display = 'block';
+                document.getElementById('restart').focus();
+                break;
+            case 'shutdown': 
+                document.getElementById('shutdown').style.display = 'block';
+                document.getElementById('shutdown').focus();
+                break;
+            case 'windowsChanged':
+                document.getElementById('applications').innerHTML = '';
+                if (!ev.data['windows'].length) document.getElementById('applications').textContent = 'No windows open.';
+                for (var i = 0; i < ev.data['windows'].length; i++) {
+                    var windowButton = document.createElement('button');
+                    windowButton.classList.add('window-button');
+                    if (ev.data['windows'][i].focused) windowButton.classList.add('active-window-button');
+                    windowButton.setAttribute('data-window-id', ev.data['windows'][i].id);
+                    windowButton.addEventListener('click', function() {
+                        document.getElementById('windowFrame').contentWindow.postMessage({"type": "unminimizeWindowById", "id": this.getAttribute('data-window-id')});
+                        document.getElementById('windowFrame').contentWindow.postMessage({"type": "focusWindowById", "id": this.getAttribute('data-window-id')});
+                    });
+                    windowButton.textContent = ev.data['windows'][i].title;
+                    document.getElementById('applications').appendChild(windowButton);
+                    document.getElementById('applications').appendChild(document.createTextNode(' '));
+                }
         }
     }
     window.onresize = function(ev) {

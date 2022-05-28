@@ -3,5 +3,6 @@
     "author": "Leo",
     "start": "apps/endless-enemies/index.html",
     "license": "GPL-3.0-or-later",
-    "description": "Endless Enemies game from Harmlesswebsite"
+    "description": "Endless Enemies game from Harmlesswebsite",
+    "version": "1.0.0"
 }
