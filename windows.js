@@ -108,7 +108,7 @@ function createWindow(wi) {
     closeButtons.appendChild(minimize);
     var maximize = document.createElement('button');
     maximize.classList.add('operation-button');
-    maximize.innerHTML = '☐';
+    maximize.innerHTML = '□';
     maximize.addEventListener('click', function() {
         this.parentNode.parentNode.parentNode.parentNode.classList.toggle('maximized');
     });
