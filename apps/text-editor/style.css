@@ -1,3 +1,12 @@
 .status-bar div:not(#welcomemsg) {
     display: none;
 }
+.status-bar {
+    font-family: monospace;
+}
+.status-bar input {
+    border: none;
+    padding: 0;
+    outline: none;
+    background-color: transparent;
+}
