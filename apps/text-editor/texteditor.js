@@ -19,7 +19,9 @@ window.addEventListener('hashchange', function() {
         // CALLBACK HELL! 3 levels deep now!
         fs.realpath(file, function(error, path) {
             document.getElementById('filename').textContent = path;
+            document.getElementById('currentTitle').textContent = `Editing ${path.split('/')[path.split('/').length - 1]}`;
             document.getElementById('fileinfo').style.display = 'block';
+            document.getElementById('where2save').value = path;
             fs.readFile(path, 'utf-8', function(err, data) {
                 // 4 levels now!
                 document.getElementById('writehere').value = data;
@@ -37,3 +39,20 @@ document.getElementById('file2open').addEventListener('keydown', function(ev) {
         document.getElementById('nope').style.display = 'block';
     }
 });
+document.getElementById('where2save').addEventListener('keydown', function(ev) {
+    if (ev.key === 'Escape') {
+        closeAllMessages();
+        document.getElementById('nope').style.display = 'block';
+    }
+});
+function saveFile(path, contents) {
+    const fs = require('fs');
+    fs.writeFile(path, contents, function(error) {
+        closeAllMessages();
+        if (error) {
+            document.getElementById('writeerrortext').textContent = error;
+            return document.getElementById('writeerror').style.display = 'block';
+        }
+        document.getElementById('writesuccess').style.display = 'block';
+    });
+}

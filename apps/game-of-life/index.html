@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title id='taitl'>Harmless Game Of Life Simulator</title>
+    </head>
+    <style>
+        .cell {
+            vertical-align: top;
+            width: 25px;
+            height: 25px;
+            border: 1px solid;
+            padding: 0; 
+            margin: 0;
+        }
+        .selected {
+            background-color: gold;
+        }
+    </style>
+    <link rel="stylesheet" href="../../style.css" />
+
+    <body id="baudy">
+        <h1 style="position: fixed; top: -9999px;">Game of Life</h1>
+        <div id="controls">
+        <form onsubmit="drawMap(document.getElementById('rows').value, document.getElementById('cols').value); document.getElementById('int').hidden = '';" action="javascript:;">
+        <label>
+            Rows:
+            <input id="rows" type="number" max="150" required="required" />
+        </label>
+        <label>
+            Columns:
+            <input id="cols" type="number" max="150" required="required" />
+        </label>
+            <!-- By default it is a type="submit" -->
+            <button type="submit">DRAW</button>
+        </form>
+        <form id="int" hidden="hidden" action="javascript:;" onsubmit='globalThis.simul = setInterval(step, document.getElementById("timeInterval").value * 1000); globalThis.started = true; document.getElementById("go").disabled="disabled"; document.getElementById("timeInterval").disabled  ="disabled"; document.getElementById("clearinterval").disabled = "";'>
+            <div><i>Use the buttons below to select cells, or click on cells to toggle whether they are selected.</i></div>
+            <br />
+            <button type="button" onclick="for (var i = 0; i < rows; i++) {for (var j = 0; j < cols; j++) {document.getElementById(`r${i}c${j}`).classList.remove('selected');globalThis.cells[i][j] = false}}">de</button><button type="button" onclick="for (var i = 0; i < rows; i++) {for (var j = 0; j < cols; j++) {document.getElementById(`r${i}c${j}`).classList.add('selected'); globalThis.cells[i][j] = true}}">Select all</button>
+            <button type="button" onclick="for (var i = 0; i < rows; i++) {for (var j = 0; j < cols; j++) {document.getElementById(`r${i}c${j}`).click()}}">Toggle all</button>
+            <button type="button" onclick="for (var i = 0; i < rows; i++) {for (var j = 0; j < cols; j++) {if (Math.random() < 0.125)document.getElementById(`r${i}c${j}`).classList.add('selected'); else document.getElementById(`r${i}c${j}`).classList.remove('selected'); globalThis.cells[i][j] = document.getElementById(`r${i}c${j}`).matches('.selected');}}">Randomize (1/8 selected)</button>
+            <button type="button" onclick="for (var i = 0; i < rows; i++) {for (var j = 0; j < cols; j++) {if (Math.random() < 0.25)document.getElementById(`r${i}c${j}`).classList.add('selected'); else document.getElementById(`r${i}c${j}`).classList.remove('selected'); globalThis.cells[i][j] = document.getElementById(`r${i}c${j}`).matches('.selected');}}">(1/4 selected)</button>
+            <button type="button" onclick="for (var i = 0; i < rows; i++) {for (var j = 0; j < cols; j++) {if (Math.random() < 0.3)document.getElementById(`r${i}c${j}`).classList.add('selected'); else document.getElementById(`r${i}c${j}`).classList.remove('selected'); globalThis.cells[i][j] = document.getElementById(`r${i}c${j}`).matches('.selected');}}">(1/3 selected)</button>
+            <button type="button" onclick="for (var i = 0; i < rows; i++) {for (var j = 0; j < cols; j++) {if (Math.random() < 0.5)document.getElementById(`r${i}c${j}`).classList.add('selected'); else document.getElementById(`r${i}c${j}`).classList.remove('selected'); globalThis.cells[i][j] = document.getElementById(`r${i}c${j}`).matches('.selected');}}">(1/2 selected)</button>
+            <button type="button" onclick="for (var i = 0; i < rows; i++) {for (var j = 0; j < cols; j++) {if (Math.random() < 0.75)document.getElementById(`r${i}c${j}`).classList.add('selected'); else document.getElementById(`r${i}c${j}`).classList.remove('selected'); globalThis.cells[i][j] = document.getElementById(`r${i}c${j}`).matches('.selected');}}">(3/4 selected)</button>
+            <br />
+            <label>Time interval between steps: <input type="number" id='timeInterval' value='1' max = '5' step="any" /></label>
+            <input type="submit" value="GO" id="go" />
+        </form>
+        <button id="clearinterval" onclick='if (globalThis.started) {globalThis.started = false;clearInterval(globalThis.simul); document.getElementById("go").disabled="";document.getElementById("timeInterval").disabled="";}' disabled = 'disabled'>
+            STOP
+        </button>
+        </div>
+        <hr />
+        <h2 style="position: fixed; top: -999px;">Game board</h2>
+        <div aria-hidden="true" style="font-weight: bold; font-size: 1.1em;">Game board</div>
+        <div style="white-space: nowrap; overflow: auto;">
+        <div id='simulation'>Please select a width and height to see the game board.</div>
+        </div>
+        <script>
+            function step() {
+                var before = JSON.parse(JSON.stringify(cells));
+                // To modify, operate
+                // on cells. To read,
+                // read from before.
+                for (var i = 0; i < rows; i++) {
+                    // Each row
+                    for (var j = 0; j < cols; j++) {
+                        // Each cell
+                        var count = aroundCount(i, j, before);
+                        console.log(i, j, count);
+                        if (count === 3) {
+                            globalThis.cells[i][j] = true;
+                        }
+                        if (count < 2 || count > 3) {
+                            globalThis.cells[i][j] = false;
+                        }
+                        // Now let's update the board
+                        if (globalThis.cells[i][j]) {
+                            document.getElementById(`r${i}c${j}`).classList.add('selected');
+                    } else {
+                            document.getElementById(`r${i}c${j}`).classList.remove('selected');
+                    }
+                    }
+                }
+            }
+            globalThis.started = false;
+            selectedCells = [];
+            
+            
+            function aroundCount(row, col, board) {
+                var center = board[row][col];
+                var w = board[row][col - 1] ?? false;
+                var e = board[row][col + 1] ?? false;
+                var s = (board[row + 1]) ? (board[row + 1][col]) : false;
+                var n = (board[row - 1]) ? (board[row - 1][col]) : false;
+                var nw = (board[row - 1]) ? (board[row - 1][col - 1] ?? false) : false;
+                var ne = (board[row - 1]) ? (board[row - 1][col + 1] ?? false) : false;
+                var sw = (board[row + 1]) ? (board[row + 1][col - 1] ?? false) : false;
+                var se = (board[row + 1]) ? (board[row + 1][col + 1] ?? false) : false;
+                var things = [n, e, s, w, ne, se, sw, nw];
+                console.log(things);
+                var count = 0;
+                for (var i = 0; i < things.length; i++) {
+                    if (things[i]) count++;
+                }
+                return count;
+            }
+            function drawMap(sizeR, sizeC){
+                globalThis.rows = sizeR;
+                globalThis.cols = sizeC;
+            document.getElementById('simulation').innerHTML = '';
+            var rows = sizeR;
+            var cols = sizeC;
+               globalThis.cells = [];
+            for (var i = 0; i < rows; i++) {
+                var c = [];
+                var row = document.createElement('div');
+                for (var j = 0; j < cols; j++) {
+                    var col = document.createElement('span');
+                    col.id = `r${i}c${j}`;
+                    col.classList.add('cell');
+                    col.style.display = 'inline-block';
+                    col.setAttribute('row', j);
+                    col.setAttribute('col', i);
+                    // col.style.border = '1px solid black';
+                    col.style.width = '20px';
+                    col.style.height = '20px';
+                    col.addEventListener('click', function() {
+                        if (globalThis.started) return;
+                        globalThis.cells[this.getAttribute('col')][this.getAttribute('row')] = !globalThis.cells[this.getAttribute('col')][this.getAttribute('row')];
+                        this.classList.toggle('selected');
+                    });
+                    c.push(false);
+                    row.appendChild(col);
+                }
+                globalThis.cells.push(c);
+                document.getElementById('simulation').appendChild(row);
+            }
+            }
+/* Reminds me of:
+
+    Four days will quickly steep themselves in night.
+    a.k.a for (var i = 0; i < 4; i++) days[i] = 'night';
+    four nights will quickly dream away the time.
+    a.k.a for (var i = 0; i < 4; i++) days.pop();
+*/
+        </script>
+    </body>
+</html>

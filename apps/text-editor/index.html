@@ -13,7 +13,7 @@
         <div style="display: table-cell; text-align: center;">
         <div style="float: left;"><button onclick="closeAllMessages(); document.getElementById('openfile').style.display = 'block'; document.getElementById('openfile').querySelector('input').focus();">Open...</button></div>
         <span id="currentTitle" style="text-align: center;">Harmless Text Editor</span>
-        <div style="float: right;">Save...</div>
+        <div style="float: right;"><button onclick="closeAllMessages(); document.getElementById('writefile').style.display = 'block'; document.getElementById('where2save').focus();">Save...</button></div>
         </div>
     </div>
     <div id="editarea" style="display: table-row;">
@@ -31,6 +31,15 @@
     <div id="fileinfo">File <span id="filename">$FILENAME</span> currently open</div>
     <div id="filenotfound">Sorry. File <span id="nonexistentfilename">$FILENAME</span> not found</div>
     <div id="fileerror">Sorry. There was an error reading your file: <span id="fileerrortext">$ERROR</span></div>
+    <div id="writefile"><form onsubmit="saveFile(document.getElementById('where2save').value, document.getElementById('writehere').value);" action="javascript:;">
+    <label>Filename to save to:
+        <input id="where2save" />
+    </label>
+    <span style="float: right;">Enter = save, Esc = cancel</span>
+</form>
+</div>
+<div id="writeerror">An error occurred while writing this file: <span id="writeerrortext">$ERROR</span>. Your file has not been saved.</div>
+<div id="writesuccess">Write succeeded</div>
     </div>
         </div>
         <script src="texteditor.js"></script>

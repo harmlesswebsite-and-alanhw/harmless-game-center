@@ -1,0 +1,8 @@
+{
+    "name": "Game of Life",
+    "author": "@weeklyd3 and @idkwutocalmself",
+    "start": "apps/game-of-life/index.html",
+    "license": "GPL-3.0-or-later",
+    "description": "Game of Life from Harmlesswebsite",
+    "version": "1.0.0"
+}
