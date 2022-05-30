@@ -1,0 +1,8 @@
+{
+    "name": "File Browser",
+    "author": "Timothy",
+    "start": "apps/file-browser/index.html",
+    "license": "GPL-3.0-or-later",
+    "description": "A tool for viewing the contents of folders",
+    "version": "1.0.0"
+}

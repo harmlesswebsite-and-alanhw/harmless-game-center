@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title id="taitl">File Browser</title>
+    <link rel="stylesheet" href="../../style.css" />
+    <link rel="stylesheet" href="browser.css" />
+    <script src="../../res/settings.js"></script>
+</head>
+<body>
+    <div style="position: fixed; top: 0; left: 0; display: table; max-width: 100vw; height: 100%;">
+    <div style="background-color: cyan; height: 0px; text-align: center; display: table-row;">
+    <span id="current-position" style="display: table-cell;">/</span>
+    </div>
+    <div id="files-row" style="overflow: auto; height: 100%; width: 100vw;">
+        <table id="files">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Type</th>
+                    <th>Last modified</th>
+                </tr>
+            </thead>
+            <tbody id="filelist"></tbody>
+        </table>
+    </div>
+    </div>
+    <script src="browser.js"></script>

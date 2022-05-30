@@ -1,0 +1,10 @@
+#files tr {
+    padding: 7px;
+}
+#files tr:nth-child(odd) {
+    background-color: lightgray;
+}
+#files {
+    margin: 0; 
+    list-style: none;
+}

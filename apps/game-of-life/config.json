@@ -4,5 +4,6 @@
     "start": "apps/game-of-life/index.html",
     "license": "GPL-3.0-or-later",
     "description": "Game of Life from Harmlesswebsite",
-    "version": "1.0.0"
+    "version": "1.0.0",
+    "image": "apps/game-of-life/icon.svg"
 }
