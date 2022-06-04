@@ -4,5 +4,6 @@
     "start": "apps/file-browser/index.html",
     "license": "GPL-3.0-or-later",
     "description": "A tool for viewing the contents of folders",
-    "version": "1.0.0"
+    "version": "1.0.0",
+    "image": "apps/file-browser/folder.svg"
 }

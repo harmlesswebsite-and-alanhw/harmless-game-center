@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title id="taitl">Image viewer</title>
+    <link rel="stylesheet" href="../../style.css" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="../../res/settings.js"></script>
+</head>
+<body style="margin: 0; padding: 0;">
+    <div id="error" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 1); display: none;">
+        <div id="errortext" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 1.5em; font-weight: bold; color: white;">Nothing to view</div>
+    </div>
+    <img id="image" alt="Image to view" style="display: none;" />
+    <script>
+        if (!location.hash.slice(1)) {
+           document.getElementById('error').style.display = 'block';
+        } else {
+            document.getElementById('image').style.display = 'block';
+            document.getElementById('image').src = decodeURIComponent(location.hash.slice(1));
+        }
+    </script>
+</body>
+</html>

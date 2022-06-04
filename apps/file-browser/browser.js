@@ -11,8 +11,26 @@ function getFiles(dir) {
         for (var i = 0; i < files.length; i++) {
             const row = document.createElement('tr');
             row.addEventListener('dblclick', function() {
-                if (this.children[1].textContent === 'File') return;
-                getFiles(this.children[0].getAttribute('data-goesto'));
+                if (this.children[1].textContent === 'File') {
+                    var fileExt = this.children[0].textContent.split('.');
+                    fileExt = fileExt[fileExt.length - 1];
+                    console.log(`Extension: ${fileExt}`);
+                    switch (fileExt) {
+                        case 'png':
+                        case 'jpeg':
+                        case 'jpg':
+                        case 'svg':
+                        case 'gif':
+                        case 'webp':
+                            window.parent.postMessage({"type": 'newApp', "title": 'Image ' + this.children[0].textContent, "url":'apps/image-viewer/index.html#' + this.children[0].getAttribute('data-goesto'), 'height': '450px', 'width': '700px'}, '*');
+                            break;
+                        default:
+                            window.parent.postMessage({"type": 'newApp', "title": 'Text editor', "url":'apps/text-editor/index.html#' + this.children[0].getAttribute('data-goesto'), 'height': '450px', 'width': '700px'}, '*');
+                            break;
+                    }
+                } else {
+                    getFiles(this.children[0].getAttribute('data-goesto'));
+                }
             });
             const file = files[i];
             fs.stat(`${dir}/${files[i]}`, function(err, success) {

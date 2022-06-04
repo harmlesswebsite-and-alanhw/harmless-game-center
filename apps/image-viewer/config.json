@@ -1,0 +1,8 @@
+{
+    "name": "Image Viewer",
+    "author": "@weeklyd3",
+    "start": "apps/image-viewer/index.html",
+    "license": "GPL-3.0-or-later",
+    "description": "An image viewer",
+    "version": "1.0.0"
+}
