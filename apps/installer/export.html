@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title id="taitl">Export an application</title>
+    <link rel="stylesheet" href="../../style.css" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="../../res/settings.js"></script>
+</head>
+<body>
+    <h1>Create an installation file</h1>
+    <div>
+    <p>Please select an application below to create a package.</p>
+    <label>Application: <select id="app">
+        <option id="choose" disabled="disabled" selected="selected">Loading...</option>
+    </select></label>
+    <input type="button" onclick="document.getElementById('cwd').textContent = process.cwd(); if (!document.getElementById('app').selectedIndex) document.body.textContent = 'Nope, it will not work again'; else document.getElementById('steptwo').hidden = ''; this.parentNode.hidden = 'hidden';" value="Continue" /></div>
+    <div id="steptwo" hidden="hidden">
+        <label>Output filename [cwd = <span id="cwd">loading...</span>]: <input id="outputFilename" /></label>
+        <input onclick="packageApp()" value="Go" type="button" />
+    </div>
+    <div id="stepЗ" hidden="hidden">
+        <h2>Packaging app...</h2>
+        <pre id="progress">Started packaging</pre>
+    </div>
+    <script>
+        function packageApp() {
+            const app = document.querySelector('select').options[document.querySelector('select').selectedIndex].value;
+            document.getElementById('stepЗ').hidden = '';
+            document.getElementById('steptwo').hidden = 'hidden';
+            document.getElementById('progress').textContent += `\nMaking temporary directory...`;
+            const fs = require('fs');
+            fs.mkdirSync(__dirname + `/../../tmp/${app}`, { recursive: true });
+            const fse = require('fs-extra');
+            document.getElementById('progress').textContent += `\nCopying files into temporary directory...`;
+            fse.copySync(__dirname + `/../${app}`, __dirname + `/../../tmp/${app}/${app}`);
+            document.getElementById('progress').textContent += `\nZip archiver initialized\nZipping, this may take a while...`;
+            zipDirectory(__dirname + `/../../tmp/${app}`, document.getElementById('outputFilename').value)
+            .then(function() {
+                const fs = require('fs');
+                document.getElementById('progress').textContent += `\nCompleted. Output filename: ${fs.realpathSync(document.getElementById('outputFilename').value)}`;
+            })
+            .catch(function(err) {
+                document.getElementById('progress').textContent += `\nFatal: ${err}\nPackaging terminated.`;
+                
+            })
+        }
+        function loadApps() {
+            const fs = require('fs');
+            fs.promises.readdir(process.cwd() + "/apps")
+            .then(function(apps) {
+                apps.forEach(function(element) {
+                    const option = document.createElement('option');
+                    const config = JSON.parse(fs.readFileSync(__dirname + `/../../apps/${element}/config.json`));
+                    option.textContent = `${config.name} (v${config.version}) by ${config.author}`;
+                    option.value = element;
+                    document.querySelector('select').appendChild(option);
+                });
+                document.querySelector('select option').textContent = 'Choose...';
+            });
+        }
+        loadApps();
+    function zipDirectory(sourceDir, outPath) {
+        const archiver = require('archiver');
+        const fs = require('fs');
+        const archive = archiver('zip', { zlib: { level: 9 }});
+        const stream = fs.createWriteStream(outPath);
+      
+        return new Promise((resolve, reject) => {
+          archive
+            .directory(sourceDir, false)
+            .on('error', err => reject(err))
+            .pipe(stream)
+          ;
+      
+          stream.on('close', () => resolve());
+          archive.finalize();
+        });
+      }
+    </script>      
+    </body>
+    </html>

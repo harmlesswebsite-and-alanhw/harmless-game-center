@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title id="taitl">Install something</title>
+    <link rel="stylesheet" href="../../style.css" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="../../res/settings.js"></script>
+</head>
+<body>
+    <h1>Install a program</h1>
+    <p>(<a href="index.html">Back</a>)</p>
+    <form id="stepone" action="javascript:;" onsubmit="alert('not done yet')">
+    <label>Enter the full file path to an installation file:<br />
+    <input id="filename" type="file" onchange="install()" />
+    </label>
+    </form>
+    <div id="steptwo" hidden="hidden">
+        <div id="loading">
+            Loading application details...
+        </div>
+        <div id="installconfirm" hidden="hidden">
+            <h2>Are you sure you want to install</h2>
+            <p>...the program <b id="programName">$NAME</b> by <b id="programAuthor">$AUTHOR</b>?</p>
+            <p>WARNING! Malicious programs could harm your system! Are you sure you REALLY want to install this?</p>
+            <button onclick="location.reload()">Cancel</button>
+            <button onclick="actualInstall()">Install</button>
+        </div>
+    </div>
+    <div id="stepthree" hidden="hidden">
+        Please wait while we install this program...
+        <pre>Preparing to install...</pre>
+        <div id="progressBar">
+            <label>Please wait...<br />
+            <progress style="box-sizing: border-box; display: block; width: 100%;">Installing program...</progress>
+            </label>
+        </div>
+        <div id="installed" hidden="hidden">
+            <h2>The program is now installed.</h2>
+            <p>It will show in your Applications list on next startup.</p>
+            <button onclick="parent.parent.postMessage({type:'restart'});">Restart now</button>
+        </div>
+    </div>
+    <script>
+        function actualInstall() {
+            document.getElementById('steptwo').hidden = 'hidden';
+            document.getElementById('stepthree').hidden = '';
+            document.querySelector('pre').textContent += `\nExtracting zip, this may take a while...`;
+            document.querySelector('#progressBar').hidden = '';
+            const AdmZip = require("adm-zip");
+            const path = require("path");
+
+            async function extractArchive(filepath) {
+            try {
+                const zip = new AdmZip(filepath);
+                const outputDir = `${path.resolve('./apps')}`;
+                zip.extractAllTo(outputDir);
+
+                document.querySelector('pre').textContent += `\nExtracted to "${outputDir}" successfully`;
+                document.querySelector('#progressBar').hidden = 'hidden';
+                document.getElementById('installed').hidden = '';
+            } catch (e) {
+                document.querySelector('pre').textContent += `\nSomething went wrong. ${e}`;
+                document.querySelector('#progressBar').hidden = 'hidden';
+            }
+            }
+
+            extractArchive(document.querySelector('[type=file]').files[0].path);
+
+        }
+        function install() {
+            document.getElementById('stepone').hidden = 'hidden';
+            document.getElementById('steptwo').hidden = '';
+            const zipPath = document.querySelector('[type=file]').files[0].path;
+            const StreamZip = require('node-stream-zip');
+            const zip = new StreamZip({
+                file: zipPath,
+                //storeEntries: true
+            });
+
+            zip.on('ready', () => {
+                document.getElementById('loading').hidden = 'hidden';
+                document.getElementById('installconfirm').hidden = '';
+                console.log('Entries read: ' + zip.entriesCount);
+                var firstDirectoryRead = null;
+                for (const entry of Object.values(zip.entries())) {
+                    const desc = entry.isDirectory ? 'directory' : `${entry.size} bytes`;
+                    if (entry.isDirectory && !firstDirectoryRead) firstDirectoryRead = entry.name;
+                    console.log(`Entry ${entry.name}: ${desc}`);
+                }
+
+                // Read a file in memory
+                console.log(`${firstDirectoryRead}config.json`);
+                let zipDotTxtContents = zip.entryDataSync(`${firstDirectoryRead}config.json`).toString('utf8');
+                let config = JSON.parse(zipDotTxtContents);
+                document.getElementById('programName').textContent = config.name;
+                document.getElementById('programAuthor').textContent = config.author;
+
+                // Do not forget to close the file once you're done
+                zip.close();
+            });
+        }
+    </script>
+    </body>
+    </html>

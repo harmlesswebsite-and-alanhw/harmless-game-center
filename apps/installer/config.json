@@ -1,0 +1,9 @@
+{
+    "name": "App Installer",
+    "description": "Package and install applications",
+    "author": "Timothy",
+    "license": "GPL-3.0-or-later",
+    "start": "apps/installer/index.html",
+    "version": "1.0.0",
+    "image": "apps/installer/icon.svg"
+}

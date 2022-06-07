@@ -11,7 +11,7 @@ class program {
         this.description = description;
     }
 }
-function getApps() {
+function getApps(set = true) {
     const fs = require('fs');
     fs.promises.readdir(process.cwd() + "/apps")
     .then(function(files) {
@@ -22,7 +22,7 @@ function getApps() {
             config = JSON.parse(config);
             apps.push(new program(config.name, config.start, config.description, {coverImage: config.image ?? "img/someapp.svg"}));
         }
-        setApps(apps);
+        if (set) setApps(apps);
     })
     .catch(function() {
         return 'FALIURE';
