@@ -1,5 +1,5 @@
 const fs = require('fs');
-function getFiles(dir) {
+function getFiles(dir, modifyURL = true) {
     document.getElementById('filelist').innerHTML = '';
     // CALLBACK HELL!
     document.getElementById('current-position').textContent = dir;
@@ -37,6 +37,7 @@ function getFiles(dir) {
                 if (err) return false;
                 var name = document.createElement('td');
                 name.textContent = fs.realpathSync(`${dir}/${file}`);
+                if (modifyURL) location.hash = name.textContent;
                 name.setAttribute('data-goesto', fs.realpathSync(`${dir}/${file}`));
                 if (file === "..") name.innerHTML = '..';
                 row.appendChild(name);
@@ -51,4 +52,5 @@ function getFiles(dir) {
         }
     });
 }
-getFiles('/');
+if (location.hash.slice(1)) getFiles(decodeURIComponent(location.hash.slice(1)));
+else getFiles('/');

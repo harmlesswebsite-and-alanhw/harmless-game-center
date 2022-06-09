@@ -39,6 +39,14 @@
             .then(function() {
                 const fs = require('fs');
                 document.getElementById('progress').textContent += `\nCompleted. Output filename: ${fs.realpathSync(document.getElementById('outputFilename').value)}`;
+                const path = require('path');
+                const openLink = document.createElement('button');
+                openLink.textContent = 'Open containing directory';
+                openLink.style.display = 'block';
+                openLink.addEventListener('click', function() {
+                    window.parent.postMessage({"type": "newApp", "width": "600px", "height": "400px", "title": "File Browser", "url": "apps/file-browser/index.html#" + encodeURIComponent(path.dirname(fs.realpathSync(document.getElementById('outputFilename').value)))});
+                });
+                document.getElementById('progress').appendChild(openLink);
             })
             .catch(function(err) {
                 document.getElementById('progress').textContent += `\nFatal: ${err}\nPackaging terminated.`;
