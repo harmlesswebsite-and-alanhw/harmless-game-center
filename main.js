@@ -1,7 +1,7 @@
 // main.js
 
 // Modules to control application life and create native browser window
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow, contextBridge } = require('electron')
 const path = require('path')
 
 const createWindow = () => {
@@ -14,13 +14,13 @@ const createWindow = () => {
       nodeIntegration: true,
       contextIsolation: false,
       enableRemoteModule: true,
-      nodeIntegrationInSubFrames: true
+      nodeIntegrationInSubFrames: true,
     }
   })
   mainWindow.setResizable(true);
 
   // and load the index.html of the app.
-  mainWindow.loadFile('index.html')
+  mainWindow.loadFile('index.html');
 
   // Open the DevTools.
   // mainWindow.webContents.openDevTools()
