@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "adm-zip": "^0.5.9",
-    "fs-extra": "^10.1.0",
+    "fs-extra": "^11.1.0",
     "node-stream-zip": "^1.15.0"
   }
 }
