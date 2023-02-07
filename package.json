@@ -12,7 +12,7 @@
   "license": "GPL-3.0-or-later",
   "devDependencies": {
     "archiver": "^5.3.1",
-    "electron": "^20.2.0"
+    "electron": "^23.0.0"
   },
   "dependencies": {
     "adm-zip": "^0.5.9",
